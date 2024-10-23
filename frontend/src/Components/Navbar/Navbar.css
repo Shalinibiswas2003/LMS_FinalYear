@@ -1,0 +1,106 @@
+/* Base styles for the navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0; /* Ensure it starts from the left */
+    width: 100%; /* Adjust width for padding */
+   
+    padding: 1rem 2rem; /* Keep the original padding */
+    z-index: 1000;
+   margin-top: 1rem;
+    
+    box-sizing: border-box; /* Include padding in the width */
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .navbar-menu ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-menu ul li {
+    margin-left: 2rem;
+  }
+  
+  .navbar-menu ul li a {
+    color:black;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-menu ul li a:hover {
+    color: #bc8741; /* Light blue for hover effect */
+  }
+  
+  .navbar-line {
+    height: 3px;
+    background-color: #bc8741;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .navbar-menu ul {
+      flex-direction: column;
+      background-color: #1B4965;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 100%; /* Full width on mobile */
+      padding: 1rem 0;
+      display: none; /* Initially hidden */
+    }
+  
+    .navbar-menu ul li {
+      margin: 0.5rem 0;
+      text-align: center;
+    }
+  
+    .navbar-menu ul li a {
+      font-size: 1.2rem;
+    }
+  
+    .navbar-menu.active ul {
+      display: flex; /* Show when active */
+    }
+  }
+  
+  /* Toggle menu button for mobile */
+  .navbar-toggle {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-toggle {
+      display: block;
+      cursor: pointer;
+      color: white;
+      font-size: 1.5rem;
+    }
+  
+    .navbar-menu {
+      display: none;
+    }
+  
+    .navbar-menu.active {
+      display: block;
+    }
+  }
+  

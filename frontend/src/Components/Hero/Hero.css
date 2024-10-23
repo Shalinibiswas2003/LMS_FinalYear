@@ -1,0 +1,63 @@
+/* Base styles for the hero section */
+.hero {
+    width: 100%;
+    height: 70vh; /* Height of the hero section */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: 'Gilroy', sans-serif; /* Ensure consistency in typography */
+    top: 7rem; /* Adjust if there's a fixed navbar */
+    margin-bottom: 3rem;
+  }
+  
+  /* Overlay for a dark effect on the background image */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+    z-index: 1; /* Ensure overlay is on top of the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Title text */
+  .hero-title {
+    z-index: 2; /* Ensure text is on top of the overlay */
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 1rem;
+    
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .hero-title {
+      font-size: 2.5rem; /* Adjust title size for medium screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem; /* Adjust title size for tablets */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      height: 50vh; /* Reduce hero height on mobile */
+    }
+  
+    .hero-title {
+      font-size: 1.5rem; /* Smaller title for mobile */
+    }
+  }
+  

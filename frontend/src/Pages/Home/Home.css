@@ -1,0 +1,50 @@
+/* Styling for the logo section */
+.logo-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 7rem 0;
+    width: 100%;
+    margin-top: 10rem;
+  }
+  
+  .logo-item {
+    text-align: center;
+  }
+  
+  .logo-item img {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  .logo-item p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .logo-section {
+      flex-wrap: wrap;
+    }
+  
+    .logo-item {
+      flex: 0 0 45%; /* Two items per row */
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-item {
+      flex: 0 0 100%; /* Full width per item on small screens */
+      margin-bottom: 1rem;
+    }
+  
+    .logo-item img {
+      width: 120px; /* Smaller image on small screens */
+      height: 80px;
+    }
+  }
+  

@@ -1,0 +1,110 @@
+/* Base styles for the team section */
+.team-section {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.team-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+    font-family: 'Gilroy', sans-serif;
+}
+
+.team-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    height: 300px; /* Adjust height to control the semicircular layout */
+    width: 100%;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100px;
+    height: 250px;
+}
+
+.team-member-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 1rem;
+    border: 4px solid #bc8741;
+}
+
+.team-member-name {
+    font-size: 1rem;
+    color: #333;
+    font-family: 'Gilroy', sans-serif;
+}
+
+/* Semicircular positioning for team members (Desktop Layout) */
+@media (min-width: 768px) {
+.team-member:nth-child(1) {
+    left: -4rem;
+    bottom: 0;
+    transform: translate(50%, 50%);
+}
+
+.team-member:nth-child(2) {
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.team-member:nth-child(3) {
+    right: 25%;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+
+.team-member:nth-child(4) {
+    right: 0;
+    bottom: 0;
+    transform: translate(50%, 50%);
+}
+}
+/* Responsive styling */
+@media (max-width: 768px) {
+    .team-member {
+        width: 150px;
+        height: 250px;
+    }
+    .team-member-image {
+        width: 150px;
+        height: 250px;
+    }
+    .team-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Arrange team members in a column layout for smaller devices */
+    .team-container {
+        flex-direction: column;
+        height: auto; /* Allow the container height to adjust based on content */
+    }
+    
+    .team-member {
+        margin-bottom: 2rem; /* Add space between members */
+        
+        
+    }
+    
+    .team-member-image {
+      
+        
+    }
+    
+    .team-title {
+        font-size: 1.5rem;
+    }
+}
