@@ -3,6 +3,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import Slider from '../../Components/Slider/Slider';
 import './Home.css'; // Create this file for the CSS
 import Testimonials from '../../Components/Testimonial/Testimonial';
+import Footer from '../../Components/Footer/Footer';
 
 function Home() {
   return (
@@ -31,6 +32,8 @@ function Home() {
         </div>
       </div>
       <Testimonials/>
+      <br/>
+      <Footer/>
     </div>
   );
 }

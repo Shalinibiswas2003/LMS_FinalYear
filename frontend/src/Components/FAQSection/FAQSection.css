@@ -1,0 +1,23 @@
+.faq-section {
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-height: 600px; /* Adjust height to fit 4 questions */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.faq-section ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.faq-section li {
+    margin-bottom: 1rem; /* Space between FAQs */
+}
+
+.faq-section li strong {
+    display: block; /* Make questions take full width */
+    margin-bottom: 0.5rem; /* Space below questions */
+}
