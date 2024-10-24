@@ -1,12 +1,16 @@
 .footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .footer {
+      padding: 1rem;
   }
-  
-  .footer-content p {
-    margin: 5px 0;
-  }
-  
-  
+}
