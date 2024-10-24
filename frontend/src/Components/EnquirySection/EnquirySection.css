@@ -1,0 +1,13 @@
+.enquiry-form label {
+    display: block; /* Make the label take up the full width */
+    margin-bottom: 0.5rem; /* Space below the label */
+    font-weight: bold; /* Optional: make the label bold */
+}
+
+.enquiry-form input, .enquiry-form textarea {
+    width: 100%; /* Full width inputs */
+    padding: 0.5rem; /* Inner padding */
+    margin: 0.5rem 0; /* Margin between inputs */
+    border: 1px solid #ccc; /* Input border */
+    border-radius: 4px; /* Rounded corners */
+}

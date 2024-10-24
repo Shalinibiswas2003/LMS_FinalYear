@@ -1,0 +1,51 @@
+.contact-container {
+    display: flex;
+    justify-content: space-between; /* Space out the two sections */
+    margin: 2rem 1rem; /* Adjust margin as needed */
+}
+
+.enquiry-form, .faq-section {
+    flex: 1; /* Allow both sections to take equal space */
+    margin: 5rem; /* Space around each section */
+    padding: 2rem; /* Inner padding */
+    padding-top: 1.5rem;
+    border: 1px solid #ccc; /* Optional border */
+    border-radius: 8px; /* Optional rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+.enquiry-form h2, .faq-section h2 {
+    margin-bottom: 1rem; /* Space below headings */
+    margin-top: 0; /* Remove default top margin */
+    padding-top: 0; /* Ensure no extra padding at the top */
+}
+
+.enquiry-form input, .enquiry-form textarea {
+    width: 100%; /* Full width inputs */
+    padding: 0.5rem; /* Inner padding */
+    margin: 0.5rem 0; /* Margin between inputs */
+    border: 1px solid #ccc; /* Input border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.enquiry-form button {
+    background-color: #007BFF; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 0.5rem 1rem; /* Padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.enquiry-form button:hover {
+    background-color: #0056b3; /* Darker button on hover */
+}
+
+.faq-section ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove padding */
+}
+
+.faq-section li {
+    margin-bottom: 1rem; /* Space between FAQs */
+}
