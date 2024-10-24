@@ -10,6 +10,7 @@
   background-color: transparent; /* Initially transparent */
   margin-top: 1rem;
   box-sizing: border-box;
+  
 }
 
 /* Styles when navbar is scrolled */
@@ -17,9 +18,20 @@
  
   background-color: #bc8741; /* Solid color when scrolled */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  height: 11%;
+  top:-1rem;
   /* Optional shadow for effect */
+  .navbar-logo {
+    color: white;
+  }
   .navbar-line{
     display: none;
+  }
+  .navbar-menu ul li a {
+    color: white;
+    &:hover{
+      color: black;
+    }
   }
 }
 
@@ -29,6 +41,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  top:0.5rem;
+  position: relative;
 }
 
 .navbar-logo {
