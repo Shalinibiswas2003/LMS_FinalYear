@@ -6,7 +6,7 @@ import Team from '../../Components/Team/Team'
 function About() {
   return (
     <div>
-        <Navbar/>
+       <Navbar/>
         <Hero title="About " imageUrl={"https://res.cloudinary.com/demo/image/upload/flower.jpg"}/>
         <Team/>
     </div>
