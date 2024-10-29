@@ -48,7 +48,7 @@
 /* Semicircular positioning for team members (Desktop Layout) */
 @media (min-width: 768px) {
 .team-member:nth-child(1) {
-    left: -4rem;
+    left: -6rem;
     bottom: 0;
     transform: translate(50%, 50%);
 }

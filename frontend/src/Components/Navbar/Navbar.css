@@ -6,43 +6,24 @@
   width: 100%;
   padding: 1rem 2rem;
   z-index: 1000;
-  transition: background-color 0.3s ease; /* Add smooth transition */
-  background-color: transparent; /* Initially transparent */
+  transition: background-color 0.3s ease;
+  background-color: transparent;
   margin-top: 1rem;
   box-sizing: border-box;
-  
 }
 
-/* Styles when navbar is scrolled */
 .navbar-scrolled {
- 
-  background-color: #bc8741; /* Solid color when scrolled */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  background-color: #bc8741;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 11%;
-  top:-1rem;
-  /* Optional shadow for effect */
-  .navbar-logo {
-    color: white;
-  }
-  .navbar-line{
-    display: none;
-  }
-  .navbar-menu ul li a {
-    color: white;
-    &:hover{
-      color: black;
-    }
-  }
+  top: -1rem;
 }
 
-/* Rest of your existing CSS */
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  top:0.5rem;
-  position: relative;
 }
 
 .navbar-logo {
@@ -51,6 +32,7 @@
   color: black;
 }
 
+/* Menu styles */
 .navbar-menu ul {
   list-style: none;
   display: flex;
@@ -71,7 +53,7 @@
 }
 
 .navbar-menu ul li a:hover {
-  color: #bc8741; /* Hover effect */
+  color: #bc8741;
 }
 
 .navbar-line {
@@ -81,44 +63,67 @@
   margin-top: 0.5rem;
 }
 
+/* Hamburger icon styles for mobile */
+.navbar-toggle {
+  display: none;
+  cursor: pointer;
+  color: #bc8741;
+  font-size: 1.5rem;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
-  .navbar-menu ul {
-      flex-direction: column;
-      background-color: #1B4965;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      width: 100%;
-      padding: 1rem 0;
-      display: none;
-  }
-
-  .navbar-menu ul li {
-      margin: 0.5rem 0;
-      text-align: center;
-  }
-
-  .navbar-menu ul li a {
-      font-size: 1.2rem;
-  }
-
-  .navbar-menu.active ul {
-      display: flex;
-  }
-
   .navbar-toggle {
-      display: block;
-      cursor: pointer;
-      color: white;
-      font-size: 1.5rem;
+    display: block;
   }
 
   .navbar-menu {
-      display: none;
+    display: none;
   }
 
   .navbar-menu.active {
-      display: block;
+    display: flex;
+    flex-direction: column;
+    background-color: #bc8741;
+    position: absolute;
+    top: 97%;
+    right: 0;
+    width: 100%;
+    padding: 1rem 0;
   }
+
+  .navbar-menu ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-menu ul li {
+    margin: 1rem 0;
+  }
+
+  .navbar-menu ul li a {
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  .navbar-menu ul li a:hover {
+    color: black;
+  }
+}
+
+/* Styles for navbar when scrolled */
+.navbar-scrolled .navbar-logo {
+  color: white;
+}
+
+.navbar-scrolled .navbar-menu ul li a {
+  color: white;
+}
+
+.navbar-scrolled .navbar-menu ul li a:hover {
+  color: black;
+}
+
+.navbar-scrolled .navbar-line {
+  display: none;
 }
