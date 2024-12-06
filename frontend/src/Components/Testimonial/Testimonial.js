@@ -7,22 +7,22 @@ import './Testimonial.css'; // Custom styles
 const Testimonials = () => {
   const testimonials = [
     {
-      name: 'John Doe',
-      text: 'Amazing experience! The Andaman Islands were beautiful, and the service was fantastic.',
-      designation: 'Travel Blogger',
-      image: 'https://via.placeholder.com/100',
+      name: 'DK Mukherjee',
+      text: 'Interesting approach to facilitate online education,',
+      designation: 'Teacher',
+      image: 'https://media.istockphoto.com/id/1333001232/photo/portrait-of-indian-man-face-outdoors-looking-at-camera.jpg?s=612x612&w=0&k=20&c=Ne-OChwAEFF5U7yxOwUUqA8ELrJ1WCYho4RkW9v360I=',
     },
     {
-      name: 'Jane Smith',
-      text: 'A perfect destination for a honeymoon. We loved every moment of it.',
-      designation: 'Designer',
-      image: 'https://via.placeholder.com/100',
+      name: 'K Banerjee',
+      text: 'Simple and Easy to use.',
+      designation: 'Student',
+      image: 'https://yogeshwarkasture.com/wp-content/uploads/2021/04/YGK_Human-Design-in-India_Human-Design_Yogeshwar-Kasture.009.jpeg',
     },
     {
-      name: 'Michael Brown',
-      text: 'Great service and a beautiful location. Would recommend to anyone!',
-      designation: 'Photographer',
-      image: 'https://via.placeholder.com/100',
+      name: 'K Ganguly',
+      text: 'Unique Concept for Self Learning and Assessment.',
+      designation: 'Student',
+      image: 'https://st2.depositphotos.com/4153545/8095/i/950/depositphotos_80951322-stock-photo-beautiful-young-indian-woman.jpg',
     },
   ];
 

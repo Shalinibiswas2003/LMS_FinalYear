@@ -5,6 +5,7 @@ import './Home.css'; // Create this file for the CSS
 import Testimonials from '../../Components/Testimonial/Testimonial';
 import Footer from '../../Components/Footer/Footer';
 
+
 function Home() {
   return (
     <div>
@@ -15,20 +16,20 @@ function Home() {
       {/* Logo Section */}
       <div className="logo-section">
         <div className="logo-item">
-          <img src="https://via.placeholder.com/150x100?text=Logo+1" alt="Logo 1" />
-          <p>Logo 1</p>
+          <img src="/GPTTeacher.png" alt="CourseGen" />
+          <p>Generate Your Course</p>
         </div>
         <div className="logo-item">
-          <img src="https://via.placeholder.com/150x100?text=Logo+2" alt="Logo 2" />
-          <p>Logo 2</p>
+          <img src="/BookIcon.png" alt="Logo 2" />
+          <p>Learn and Study</p>
         </div>
         <div className="logo-item">
-          <img src="https://via.placeholder.com/150x100?text=Logo+3" alt="Logo 3" />
-          <p>Logo 3</p>
+          <img src="/to-do-list.png" alt="Logo 3" />
+          <p>Take Some Tests</p>
         </div>
         <div className="logo-item">
-          <img src="https://via.placeholder.com/150x100?text=Logo+4" alt="Logo 4" />
-          <p>Logo 4</p>
+          <img src="/CertificateIcon.png" alt="Logo 4" />
+          <p>Get Your Certificate!</p>
         </div>
       </div>
       <Testimonials/>

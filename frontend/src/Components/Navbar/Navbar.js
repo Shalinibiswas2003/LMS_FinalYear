@@ -29,7 +29,7 @@ const Navbar = () => {
     <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-logo">
-          MyWebsite
+          EduSynth
         </div>
         <div className="navbar-toggle" onClick={toggleMenu}>
           &#9776; {/* Hamburger icon */}
