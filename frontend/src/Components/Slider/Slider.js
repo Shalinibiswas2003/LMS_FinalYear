@@ -17,16 +17,16 @@ const Slider = () => {
       navigation
     >
       <SwiperSlide>
-        <img src="https://via.placeholder.com/600x300?text=Slide+1" alt="Slide 1" />
+        <img src="https://i.ibb.co/5sFdLzm/Image1.jpg" alt="Slide 1" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="https://via.placeholder.com/600x300?text=Slide+2" alt="Slide 2" />
+        <img src="https://i.ibb.co/JQLytc6/Image3.jpg" alt="Slide 2" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="https://via.placeholder.com/600x300?text=Slide+3" alt="Slide 3" />
+        <img src="https://i.ibb.co/HFvm0rL/Image2.jpg" alt="Slide 3" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="https://via.placeholder.com/600x300?text=Slide+4" alt="Slide 4" />
+        <img src="https://i.ibb.co/c2vfpTM/Image4.jpg" alt="Slide 4" />
       </SwiperSlide>
     </Swiper>
   );

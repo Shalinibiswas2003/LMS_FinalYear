@@ -1,13 +1,14 @@
 .testimonials-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #f5f5f54b;
-    border-radius: 10px;
-    
-    box-shadow: 0px 4px 8px #bc8741df;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: rgba(245, 245, 245, 0.3); /* semi-transparent background */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px #bc8741df;
+  backdrop-filter: blur(8px); /* Apply Gaussian blur */
+}
+
   
   h2 {
     font-size: 2em;

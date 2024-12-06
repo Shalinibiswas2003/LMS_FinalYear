@@ -1,4 +1,16 @@
 /* Styling for the logo section */
+
+body {
+  background-image:url(./CoverPagex.jpg); /* Replace with your image URL */
+  background-size: cover; /* Makes the image cover the entire background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed; /* Keeps the background fixed during scrolling */
+  margin: 0;
+  padding: 0;
+  
+}
+
 .logo-section {
     display: flex;
     justify-content: space-around;
@@ -20,9 +32,13 @@
   
   .logo-item p {
     margin-top: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.5rem; /* Increased font size */
     color: #333;
+    font-weight: bold; /* Makes the text bold */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
   }
+  
+
   
   /* Responsive styles */
   @media (max-width: 768px) {
