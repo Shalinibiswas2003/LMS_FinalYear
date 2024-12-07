@@ -1,0 +1,60 @@
+.quiz-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+ 
+    border-radius: 8px;
+   
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .quiz-option {
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .quiz-option:hover {
+    background-color: #2980b9;
+  }
+  
+  .quiz-option.correct {
+    background-color: #2ecc71;  /* Green for correct answer */
+  }
+  
+  .quiz-option.wrong {
+    background-color: #e74c3c;  /* Red for wrong answer */
+  }
+  
+  .quiz-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .result-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    color: #2ecc71; /* Default green color for success */
+  }
+  
+  .result-message.wrong {
+    color: #e74c3c; /* Red color for failure */
+  }
+  

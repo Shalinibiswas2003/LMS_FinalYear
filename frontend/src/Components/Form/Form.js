@@ -1,5 +1,4 @@
 import React, { useState } from "react";
- // Optional: Separate CSS for form styling
 
 const Form = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -15,11 +14,9 @@ const Form = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("course_name", formData.course_name);
-    data.append("difficulty", formData.difficulty);
-    data.append("additional_info", formData.additional_info);
-    onSubmit(data);
+    // Send the data as JSON instead of FormData
+    console.log("Form Data Submitted:", formData);  // For debugging purpose
+    onSubmit(formData);  // Passing the form data as JSON
   };
 
   return (
