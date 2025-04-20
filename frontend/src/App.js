@@ -5,6 +5,7 @@ import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
 import Contact from './Pages/Contact/Contact';
 import ContentGen from './Pages/ContentGen/ContentGen';
+import Login from './Pages/Login/Login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/courseGen" element={<ContentGen />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
        
       </Router>
