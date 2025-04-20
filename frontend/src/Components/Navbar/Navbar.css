@@ -127,3 +127,35 @@
 .navbar-scrolled .navbar-line {
   display: none;
 }
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.navbar-user {
+  color: #000000;
+  font-weight: 700;
+  padding-left: 1rem;
+  font-size: 0.99rem;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Optional: tweak for mobile view */
+@media (max-width: 768px) {
+  .navbar-user {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    color: #887908;
+  }
+}
