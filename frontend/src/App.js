@@ -1,18 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './Pages/Home/Home';
 import About from './Pages/About/About';
 import Contact from './Pages/Contact/Contact';
 import ContentGen from './Pages/ContentGen/ContentGen';
 import Login from './Pages/Login/Login';
 
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { supabase } from "./supabaseClient"; // Make sure this path is correct
+
 function App() {
   return (
-    <div className="App">
-      <Router>
-       
-          
+    <SessionContextProvider supabaseClient={supabase}>
+      <div className="App">
+        <Router>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -20,9 +22,9 @@ function App() {
             <Route path="/courseGen" element={<ContentGen />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-       
-      </Router>
-    </div>
+        </Router>
+      </div>
+    </SessionContextProvider>
   );
 }
 
