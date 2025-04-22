@@ -71,7 +71,7 @@ const ContentGen = () => {
     setError("");
     setStatusMessage("");
     console.log("formData is" + formData);
-    fetch("https://103f-14-142-11-142.ngrok-free.app/generate", {
+    fetch(" https://mostly-communal-fly.ngrok-free.app/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -104,7 +104,7 @@ const ContentGen = () => {
   const handleTakeTest = async () => {
     try {
       const res = await fetch(
-        "https://103f-14-142-11-142.ngrok-free.app/generate-test",
+        " https://mostly-communal-fly.ngrok-free.app/generate-test",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
