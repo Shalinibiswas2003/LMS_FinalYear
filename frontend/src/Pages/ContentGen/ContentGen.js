@@ -15,6 +15,7 @@ const ContentGen = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
+  const [generatedTest, setGeneratedTest] = useState(null);
 
   useEffect(() => {
     if (user) fetchSavedCourses();
@@ -42,7 +43,7 @@ const ContentGen = () => {
       setStatusMessage("User not logged in. Course not saved.");
       return;
     }
-  
+
     const { data, error } = await supabase.from("courses").insert([
       {
         user_id: user.id,
@@ -54,7 +55,7 @@ const ContentGen = () => {
         quiz,
       },
     ]);
-  
+
     if (error) {
       console.error("Error saving course:", error);
       setStatusMessage("Error saving course.");
@@ -64,13 +65,12 @@ const ContentGen = () => {
       fetchSavedCourses();
     }
   };
-  
 
   const handleFormSubmit = (formData) => {
     setLoading(true);
     setError("");
     setStatusMessage("");
-    console.log("formData is"+formData)
+    console.log("formData is" + formData);
     fetch("https://103f-14-142-11-142.ngrok-free.app/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -101,6 +101,34 @@ const ContentGen = () => {
       });
   };
 
+  const handleTakeTest = async () => {
+    try {
+      const res = await fetch(
+        "https://103f-14-142-11-142.ngrok-free.app/generate-test",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            course_name: savedCourses[0]?.course_name || "Default Course",  // or get from form
+            difficulty: savedCourses[0]?.difficulty || "medium",            // or get from form
+            content: content,
+          }),
+        }
+      );
+  
+      if (!res.ok) throw new Error("Failed to generate test");
+  
+      const data = await res.json();
+      setGeneratedTest(data.test);
+  
+      localStorage.setItem('testData', data.test);
+      window.location.href = "/test";
+    } catch (err) {
+      console.error("Error generating test:", err);
+      setError("Failed to generate test.");
+    }
+  };
+
   const handleSelectCourse = (course) => {
     setSections(course.sections);
     setContent(course.content);
@@ -111,21 +139,37 @@ const ContentGen = () => {
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Left Sidebar */}
-      <div style={{ width: "250px", borderRight: "1px solid #ccc", padding: "10px", overflowY: "auto" }}>
+      <div
+        style={{
+          width: "250px",
+          borderRight: "1px solid #ccc",
+          padding: "10px",
+          overflowY: "auto",
+        }}
+      >
         <h3>Saved Courses</h3>
         {savedCourses.length === 0 && <p>No courses yet</p>}
         <ul style={{ listStyle: "none", padding: 0 }}>
           {savedCourses.map((course) => (
-            <li key={course.id} style={{ cursor: "pointer", marginBottom: "10px" }} onClick={() => handleSelectCourse(course)}>
+            <li
+              key={course.id}
+              style={{ cursor: "pointer", marginBottom: "10px" }}
+              onClick={() => handleSelectCourse(course)}
+            >
               <strong>{course.course_name}</strong>
-              <div style={{ fontSize: "12px", color: "#888" }}>{course.difficulty}</div>
+              <div style={{ fontSize: "12px", color: "#888" }}>
+                {course.difficulty}
+              </div>
             </li>
           ))}
         </ul>
       </div>
 
       {/* Main Content Area */}
-      <div className="content-gen-container" style={{ flex: 1, padding: "20px" }}>
+      <div
+        className="content-gen-container"
+        style={{ flex: 1, padding: "20px" }}
+      >
         <h1>Course Content Generator</h1>
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
@@ -140,6 +184,11 @@ const ContentGen = () => {
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
           />
+        )}
+        {sections.length > 0 && (
+          <button onClick={handleTakeTest} style={{ marginTop: "20px" }}>
+            Take Test
+          </button>
         )}
       </div>
     </div>
