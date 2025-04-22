@@ -4,9 +4,10 @@ import ContentDisplay from "../../Components/ContentDisplay/ContentDisplay";
 import { supabase } from "../../supabaseClient";
 import { useUser } from "@supabase/auth-helpers-react";
 import "./ContentGen.css";
+import spinner from "../../Assets/spinner.gif"
 
 const ContentGen = () => {
-  const user = useUser(); // Get current user
+  const user = useUser();
   const [savedCourses, setSavedCourses] = useState([]);
   const [sections, setSections] = useState([]);
   const [content, setContent] = useState({});
@@ -16,6 +17,13 @@ const ContentGen = () => {
   const [error, setError] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [generatedTest, setGeneratedTest] = useState(null);
+
+  const showTemporaryStatus = (message, duration = 3000) => {
+    setStatusMessage(message);
+    setTimeout(() => {
+      setStatusMessage("");
+    }, duration);
+  };
 
   useEffect(() => {
     if (user) fetchSavedCourses();
@@ -40,7 +48,7 @@ const ContentGen = () => {
   const saveCourseToDB = async (formData, sections, content, quiz) => {
     if (!user || !user.id) {
       console.error("User not available. Skipping save.");
-      setStatusMessage("User not logged in. Course not saved.");
+      showTemporaryStatus("User not logged in. Course not saved.");
       return;
     }
 
@@ -58,10 +66,25 @@ const ContentGen = () => {
 
     if (error) {
       console.error("Error saving course:", error);
-      setStatusMessage("Error saving course.");
+      showTemporaryStatus("Error saving course.");
     } else {
       console.log("Saved course:", data);
-      setStatusMessage("Course saved successfully.");
+      showTemporaryStatus("Course saved successfully.");
+      fetchSavedCourses();
+    }
+  };
+
+  const deleteCourse = async (courseId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this course?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabase.from("courses").delete().eq("id", courseId);
+
+    if (error) {
+      console.error("Error deleting course:", error);
+      showTemporaryStatus("Failed to delete course.");
+    } else {
+      showTemporaryStatus("Course deleted successfully.");
       fetchSavedCourses();
     }
   };
@@ -70,8 +93,8 @@ const ContentGen = () => {
     setLoading(true);
     setError("");
     setStatusMessage("");
-    console.log("formData is" + formData);
-    fetch(" https://mostly-communal-fly.ngrok-free.app/generate", {
+
+    fetch("https://mostly-communal-fly.ngrok-free.app/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -91,7 +114,7 @@ const ContentGen = () => {
           saveCourseToDB(formData, data.sections, data.content, data.quiz);
         } else {
           console.error("User is null. Skipping save.");
-          setStatusMessage("User not logged in. Course not saved.");
+          showTemporaryStatus("User not logged in. Course not saved.");
         }
       })
       .catch((error) => {
@@ -102,15 +125,22 @@ const ContentGen = () => {
   };
 
   const handleTakeTest = async () => {
+    setLoading(true); // Start loading spinner
+    setError(""); // Clear previous errors
+  
     try {
       const res = await fetch(
+<<<<<<< HEAD
         " https://mostly-communal-fly.ngrok-free.app/generate-test",
+=======
+        "https://mostly-communal-fly.ngrok-free.app/generate-test",
+>>>>>>> origin/main
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            course_name: savedCourses[0]?.course_name || "Default Course",  // or get from form
-            difficulty: savedCourses[0]?.difficulty || "medium",            // or get from form
+            course_name: savedCourses[0]?.course_name || "Default Course",
+            difficulty: savedCourses[0]?.difficulty || "medium",
             content: content,
           }),
         }
@@ -121,14 +151,17 @@ const ContentGen = () => {
       const data = await res.json();
       setGeneratedTest(data.test);
   
-      localStorage.setItem('testData', data.test);
-      window.location.href = "/test";
+      localStorage.setItem("testData", data.test);
+  
+      setLoading(false); // Stop spinner before redirect
+      window.location.href = "/test"; // Redirect
     } catch (err) {
       console.error("Error generating test:", err);
       setError("Failed to generate test.");
+      setLoading(false); // Stop spinner on error
     }
   };
-
+  
   const handleSelectCourse = (course) => {
     setSections(course.sections);
     setContent(course.content);
@@ -137,61 +170,89 @@ const ContentGen = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      {/* Left Sidebar */}
-      <div
-        style={{
-          width: "250px",
-          borderRight: "1px solid #ccc",
-          padding: "10px",
-          overflowY: "auto",
-        }}
-      >
-        <h3>Saved Courses</h3>
-        {savedCourses.length === 0 && <p>No courses yet</p>}
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {savedCourses.map((course) => (
-            <li
-              key={course.id}
-              style={{ cursor: "pointer", marginBottom: "10px" }}
-              onClick={() => handleSelectCourse(course)}
-            >
-              <strong>{course.course_name}</strong>
-              <div style={{ fontSize: "12px", color: "#888" }}>
-                {course.difficulty}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <>
+      {statusMessage && <p style={{ color: "green" }}>{statusMessage}</p>}
 
-      {/* Main Content Area */}
-      <div
-        className="content-gen-container"
-        style={{ flex: 1, padding: "20px" }}
-      >
-        <h1>Course Content Generator</h1>
-        {loading && <p>Loading...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {statusMessage && <p style={{ color: "green" }}>{statusMessage}</p>}
-        {sections.length === 0 ? (
-          <Form onSubmit={handleFormSubmit} />
-        ) : (
-          <ContentDisplay
-            sections={sections}
-            content={content}
-            quiz={quiz}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-          />
-        )}
-        {sections.length > 0 && (
-          <button onClick={handleTakeTest} style={{ marginTop: "20px" }}>
-            Take Test
-          </button>
-        )}
+      {loading && (
+        <div className="spinner-overlay">
+          <img src={spinner} alt="Loading..." className="spinner" />
+        </div>
+      )}
+
+      <div style={{ display: "flex", height: "100vh" }}>
+        {/* Sidebar */}
+        <div
+          style={{
+            width: "250px",
+            borderRight: "1px solid #ccc",
+            padding: "10px",
+            overflowY: "auto",
+          }}
+        >
+          <h3>Saved Courses</h3>
+          {savedCourses.length === 0 && <p>No courses yet</p>}
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {savedCourses.map((course) => (
+              <li
+                key={course.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                <div
+                  style={{ cursor: "pointer", flexGrow: 1 }}
+                  onClick={() => handleSelectCourse(course)}
+                >
+                  <strong>{course.course_name}</strong>
+                  <div style={{ fontSize: "12px", color: "#888" }}>
+                    {course.difficulty}
+                  </div>
+                </div>
+                <span
+                  style={{
+                    marginLeft: "10px",
+                    color: "red",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                  title="Delete Course"
+                  onClick={() => deleteCourse(course.id)}
+                >
+                  ×
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Main Content */}
+        <div className="content-gen-container" style={{ flex: 1, padding: "20px" }}>
+          <h1>Course Content Generator</h1>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          {sections.length === 0 ? (
+            <Form onSubmit={handleFormSubmit} />
+          ) : (
+            <ContentDisplay
+              sections={sections}
+              content={content}
+              quiz={quiz}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+            />
+          )}
+
+          {sections.length > 0 && (
+            <button onClick={handleTakeTest} className="take-test-button">
+              Take Test
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
