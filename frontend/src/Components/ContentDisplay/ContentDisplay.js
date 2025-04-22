@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown"; // ✅ Import this
+import remarkGfm from "remark-gfm"; // (optional) GitHub Flavored Markdown like tables, checkboxes
 
 const ContentDisplay = ({
   sections,
@@ -7,19 +9,22 @@ const ContentDisplay = ({
   currentIndex,
   setCurrentIndex,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(null); // Track selected option
-  const [correctOption, setCorrectOption] = useState(null);  // Track correct answer
-  const [isAnswered, setIsAnswered] = useState(false); // Track if the answer has been selected
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [correctOption, setCorrectOption] = useState(null);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   const displaySection = () => {
     const section = sections[currentIndex];
 
-    // Ensure section is valid and exists in the content object
     if (section && content[section]) {
       return (
         <>
           <h2>{section}</h2>
-          <p>{content[section]}</p>
+          <div className="markdown-content" style={{ whiteSpace: "pre-wrap" }}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {content[section]}
+            </ReactMarkdown>
+          </div>
         </>
       );
     } else {
@@ -29,11 +34,7 @@ const ContentDisplay = ({
 
   const displayQuiz = () => {
     const section = sections[currentIndex];
-
-    // Parse the quiz data from the string to an object
     const quizData = quiz[section] ? JSON.parse(quiz[section])[0] : null;
-
-    console.log("quizData", quizData);  // Debug log to check if quiz data exists
 
     if (!quizData) {
       return <p>No quiz available for this section.</p>;
@@ -51,11 +52,11 @@ const ContentDisplay = ({
                   ? "correct"
                   : "wrong"
                 : i === correctOption
-                ? "correct" // Always show the correct answer if not selected
+                ? "correct"
                 : ""
             }`}
             onClick={() => handleOptionClick(i, quizData.correctoptionNumber)}
-            disabled={isAnswered} // Disable buttons after answer is selected
+            disabled={isAnswered}
           >
             {quizData[`option${i}`]}
           </button>
@@ -67,7 +68,7 @@ const ContentDisplay = ({
   const handleOptionClick = (selected, correct) => {
     setSelectedOption(selected);
     setCorrectOption(correct);
-    setIsAnswered(true); // Lock answer after selection
+    setIsAnswered(true);
   };
 
   const resetQuizState = () => {
@@ -77,13 +78,13 @@ const ContentDisplay = ({
   };
 
   useEffect(() => {
-    resetQuizState(); // Reset state when currentIndex changes
+    resetQuizState();
   }, [currentIndex]);
 
   return (
     <div className="content-display">
       {displaySection()}
-      {quiz[sections[currentIndex]] && displayQuiz()} {/* Only show quiz if available */}
+      {quiz[sections[currentIndex]] && displayQuiz()}
       <div className="navigation-buttons">
         <button
           onClick={() => setCurrentIndex((prev) => prev - 1)}
