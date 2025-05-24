@@ -13,7 +13,7 @@
 }
 
 .navbar-scrolled {
-  background-color: #bc8741;
+  background-color: #4a787d;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 11%;
   top: -1rem;
@@ -54,6 +54,21 @@
 
 .navbar-menu ul li a:hover {
   color: #bc8741;
+}
+.signin-button {
+  background-color: #4a787d; /* Green color */
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 2px;
+  
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  
+}
+
+.signin-button:hover {
+  background-color: #218838; /* Darker green on hover */
 }
 
 .navbar-line {

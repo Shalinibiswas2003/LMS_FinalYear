@@ -33,15 +33,19 @@ const Form = ({ onSubmit }) => {
         />
       </div>
       <div>
-        <label htmlFor="difficulty">Difficulty:</label>
-        <input
-          type="text"
+         <label htmlFor="difficulty">Difficulty:</label>
+        <select
+          
           id="difficulty"
           name="difficulty"
           value={formData.difficulty}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
       </div>
       <div>
         <label htmlFor="additional_info">Additional Notes:</label>

@@ -4,7 +4,8 @@ import ContentDisplay from "../../Components/ContentDisplay/ContentDisplay";
 import { supabase } from "../../supabaseClient";
 import { useUser } from "@supabase/auth-helpers-react";
 import "./ContentGen.css";
-import spinner from "../../Assets/spinner.gif"
+import spinner from "../../Assets/spinner.gif";
+import Navbar from "../../Components/Navbar/Navbar";
 
 const ContentGen = () => {
   const user = useUser();
@@ -17,6 +18,11 @@ const ContentGen = () => {
   const [error, setError] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [generatedTest, setGeneratedTest] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar toggle state
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   const showTemporaryStatus = (message, duration = 3000) => {
     setStatusMessage(message);
@@ -125,9 +131,9 @@ const ContentGen = () => {
   };
 
   const handleTakeTest = async () => {
-    setLoading(true); // Start loading spinner
-    setError(""); // Clear previous errors
-  
+    setLoading(true);
+    setError("");
+
     try {
       const res = await fetch(
         "https://mostly-communal-fly.ngrok-free.app/generate-test",
@@ -141,23 +147,23 @@ const ContentGen = () => {
           }),
         }
       );
-  
+
       if (!res.ok) throw new Error("Failed to generate test");
-  
+
       const data = await res.json();
       setGeneratedTest(data.test);
-  
+
       localStorage.setItem("testData", data.test);
-  
-      setLoading(false); // Stop spinner before redirect
-      window.location.href = "/test"; // Redirect
+
+      setLoading(false);
+      window.location.href = "/test";
     } catch (err) {
       console.error("Error generating test:", err);
       setError("Failed to generate test.");
-      setLoading(false); // Stop spinner on error
+      setLoading(false);
     }
   };
-  
+
   const handleSelectCourse = (course) => {
     setSections(course.sections);
     setContent(course.content);
@@ -167,6 +173,7 @@ const ContentGen = () => {
 
   return (
     <>
+      <Navbar />
       {statusMessage && <p style={{ color: "green" }}>{statusMessage}</p>}
 
       {loading && (
@@ -175,57 +182,82 @@ const ContentGen = () => {
         </div>
       )}
 
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div style={{ display: "flex", height: "100vh", position: "relative", top: "7rem" }}>
         {/* Sidebar */}
         <div
           style={{
-            width: "250px",
+            width: isSidebarOpen ? "250px" : "40px",
             borderRight: "1px solid #ccc",
             padding: "10px",
             overflowY: "auto",
+            transition: "width 0.3s",
+            position: "relative",
           }}
         >
-          <h3>Saved Courses</h3>
-          {savedCourses.length === 0 && <p>No courses yet</p>}
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {savedCourses.map((course) => (
-              <li
-                key={course.id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
-                <div
-                  style={{ cursor: "pointer", flexGrow: 1 }}
-                  onClick={() => handleSelectCourse(course)}
-                >
-                  <strong>{course.course_name}</strong>
-                  <div style={{ fontSize: "12px", color: "#888" }}>
-                    {course.difficulty}
-                  </div>
-                </div>
-                <span
-                  style={{
-                    marginLeft: "10px",
-                    color: "red",
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                  }}
-                  title="Delete Course"
-                  onClick={() => deleteCourse(course.id)}
-                >
-                  ×
-                </span>
-              </li>
-            ))}
-          </ul>
+          <button
+            onClick={toggleSidebar}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: isSidebarOpen ? "-15px" : "-15px",
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              border: "1px solid #ccc",
+              background: "#fff",
+              cursor: "pointer",
+              zIndex: 1,
+            }}
+            title={isSidebarOpen ? "Collapse" : "Expand"}
+          >
+            {isSidebarOpen ? "«" : "»"}
+          </button>
+
+          {isSidebarOpen && (
+            <>
+              <h3>Saved Courses</h3>
+              {savedCourses.length === 0 && <p>No courses yet</p>}
+              <ul style={{ listStyle: "none", padding: 0 }}>
+                {savedCourses.map((course) => (
+                  <li
+                    key={course.id}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      style={{ cursor: "pointer", flexGrow: 1 }}
+                      onClick={() => handleSelectCourse(course)}
+                    >
+                      <strong>{course.course_name}</strong>
+                      <div style={{ fontSize: "12px", color: "#888" }}>
+                        {course.difficulty}
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        marginLeft: "10px",
+                        color: "red",
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                      }}
+                      title="Delete Course"
+                      onClick={() => deleteCourse(course.id)}
+                    >
+                      ×
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
 
         {/* Main Content */}
-        <div className="content-gen-container" style={{ flex: 1, padding: "20px" }}>
+        <div className="content-gen-container" style={{ flex: 1, padding: "4rem" }}>
           <h1>Course Content Generator</h1>
           {error && <p style={{ color: "red" }}>{error}</p>}
 

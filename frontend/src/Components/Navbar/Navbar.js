@@ -60,7 +60,7 @@ const Navbar = () => {
             {user ? (
               <li><a href="/" onClick={handleLogout}>Logout</a></li>
             ) : (
-              <li><a href="/login">Login</a></li>
+              <li><a href="/login" className="signin-button">Sign In</a></li>
             )}
           </ul>
         </nav>
@@ -73,7 +73,7 @@ const Navbar = () => {
           &#9776;
         </div>
       </div>
-      <div className="navbar-line"></div>
+    
     </header>
   );
 };

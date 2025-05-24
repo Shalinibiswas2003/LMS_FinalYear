@@ -1,8 +1,10 @@
 /* Set the height of the Swiper container and make it responsive */
 .swiper {
-    top:7rem;
+    
     height: 400px; /* Adjust height as needed */
-    margin-left: 4rem;
+   
+    margin-bottom: 4em;
+    margin-left: 4em;
     margin-right: 4em;
    
   }

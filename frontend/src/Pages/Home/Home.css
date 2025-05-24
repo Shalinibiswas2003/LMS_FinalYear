@@ -1,7 +1,7 @@
 /* Styling for the logo section */
 
 body {
-  background-image:url(./CoverPagex.jpg); /* Replace with your image URL */
+ /* background-image:url(./CoverPagex.jpg);  Replace with your image URL */
   background-size: cover; /* Makes the image cover the entire background */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -10,34 +10,135 @@ body {
   padding: 0;
   
 }
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6rem;
+  padding-left: 4rem;
+  flex-wrap: wrap;
+}
 
-.logo-section {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 7rem 0;
-    width: 100%;
-    margin-top: 10rem;
-  }
+.hero-text {
+  flex: 1;
+  max-width: 500px;
+  padding-right: 2rem;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0d0000;
+  text-align: center;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 10px;
+}
+
+
+/* Half Hexagon with Dotted Lines */
+.half-hexagon {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 350px;
+  margin-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hexagon-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Logo items styling */
+.logo-item {
+  position: absolute;
+  width: 140px;
+  text-align: center;
+  z-index: 1;
+}
+
+.logo-item img {
+  width: 60px;
+  height: 60px;
+}
+
+.logo-item p {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Positioning logos in half-hexagon shape */
+.logo1 {
+  top: 30%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.logo4 {
+  top: 30%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.logo2 {
+  top: 60%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.logo3 {
+  top: 60%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+.two-box-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.box {
+  flex: 1;
+  min-width: 250px;
   
-  .logo-item {
-    text-align: center;
-  }
-  
-  .logo-item img {
-    width: 150px;
-    height: 100px;
-    object-fit: contain;
-  }
-  
-  .logo-item p {
-    margin-top: 0.5rem;
-    font-size: 1.5rem; /* Increased font size */
-    color: #333;
-    font-weight: bold; /* Makes the text bold */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
-  }
-  
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 3px solid #4a787d
+}
+
+.left-box {
+  margin-right: 1rem;
+}
+
+.right-box {
+  margin-left: 1rem;
+}
+
 
   
   /* Responsive styles */
