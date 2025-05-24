@@ -18,6 +18,12 @@ const ContentGen = () => {
   const [error, setError] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [generatedTest, setGeneratedTest] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+const [currentCourseId, setCurrentCourseId] = useState(null);
+
+const toggleSidebar = () => {
+  setIsSidebarOpen((prev) => !prev);
+};
 
   const showTemporaryStatus = (message, duration = 3000) => {
     setStatusMessage(message);
