@@ -94,7 +94,7 @@ const ContentGen = () => {
     setError("");
     setStatusMessage("");
 
-    fetch("https://mostly-communal-fly.ngrok-free.app/generate", {
+    fetch("http://127.0.0.1:5001/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -130,11 +130,7 @@ const ContentGen = () => {
   
     try {
       const res = await fetch(
-<<<<<<< HEAD
-        " https://mostly-communal-fly.ngrok-free.app/generate-test",
-=======
-        "https://mostly-communal-fly.ngrok-free.app/generate-test",
->>>>>>> origin/main
+        "http://127.0.0.1:5001/generate-test",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

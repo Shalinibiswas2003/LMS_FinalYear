@@ -10,6 +10,7 @@ import TestPage from './Pages/TestPage/TestPage';
 
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { supabase } from "./supabaseClient"; // Make sure this path is correct
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/courseGen" element={<ContentGen />} />
             <Route path="/login" element={<Login />} />
             <Route path="/test" element={<TestPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </Router>
       </div>
