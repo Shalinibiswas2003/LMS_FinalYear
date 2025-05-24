@@ -4,7 +4,7 @@ import ContentDisplay from "../../Components/ContentDisplay/ContentDisplay";
 import { supabase } from "../../supabaseClient";
 import { useUser } from "@supabase/auth-helpers-react";
 import "./ContentGen.css";
-import spinner from "../../Assets/spinner.gif"
+import spinner from "../../Assets/spinner.gif";
 
 const ContentGen = () => {
   const user = useUser();
@@ -17,6 +17,7 @@ const ContentGen = () => {
   const [error, setError] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [generatedTest, setGeneratedTest] = useState(null);
+  const [currentCourseId, setCurrentCourseId] = useState(null);
 
   const showTemporaryStatus = (message, duration = 3000) => {
     setStatusMessage(message);
@@ -52,22 +53,28 @@ const ContentGen = () => {
       return;
     }
 
-    const { data, error } = await supabase.from("courses").insert([
-      {
-        user_id: user.id,
-        course_name: formData.course_name,
-        difficulty: formData.difficulty,
-        additional_info: formData.additional_info,
-        sections,
-        content,
-        quiz,
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("courses")
+      .insert([
+        {
+          user_id: user.id,
+          course_name: formData.course_name,
+          difficulty: formData.difficulty,
+          additional_info: formData.additional_info,
+          sections,
+          content,
+          quiz,
+        },
+      ])
+      .select();
 
     if (error) {
       console.error("Error saving course:", error);
       showTemporaryStatus("Error saving course.");
     } else {
+      if (data && data.length > 0) {
+        setCurrentCourseId(data[0].id); // Set new course ID
+      }
       console.log("Saved course:", data);
       showTemporaryStatus("Course saved successfully.");
       fetchSavedCourses();
@@ -75,10 +82,15 @@ const ContentGen = () => {
   };
 
   const deleteCourse = async (courseId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this course?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
     if (!confirmDelete) return;
 
-    const { error } = await supabase.from("courses").delete().eq("id", courseId);
+    const { error } = await supabase
+      .from("courses")
+      .delete()
+      .eq("id", courseId);
 
     if (error) {
       console.error("Error deleting course:", error);
@@ -127,28 +139,26 @@ const ContentGen = () => {
   const handleTakeTest = async () => {
     setLoading(true); // Start loading spinner
     setError(""); // Clear previous errors
-  
+
     try {
-      const res = await fetch(
-        "http://127.0.0.1:5001/generate-test",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            course_name: savedCourses[0]?.course_name || "Default Course",
-            difficulty: savedCourses[0]?.difficulty || "medium",
-            content: content,
-          }),
-        }
-      );
-  
+      const res = await fetch("http://127.0.0.1:5001/generate-test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          course_name: savedCourses[0]?.course_name || "Default Course",
+          difficulty: savedCourses[0]?.difficulty || "medium",
+          content: content,
+        }),
+      });
+
       if (!res.ok) throw new Error("Failed to generate test");
-  
+
       const data = await res.json();
       setGeneratedTest(data.test);
-  
+
       localStorage.setItem("testData", data.test);
-  
+      localStorage.setItem("courseId", currentCourseId);
+
       setLoading(false); // Stop spinner before redirect
       window.location.href = "/test"; // Redirect
     } catch (err) {
@@ -157,12 +167,13 @@ const ContentGen = () => {
       setLoading(false); // Stop spinner on error
     }
   };
-  
+
   const handleSelectCourse = (course) => {
     setSections(course.sections);
     setContent(course.content);
     setQuiz(course.quiz);
     setCurrentIndex(0);
+    setCurrentCourseId(course.id); // Add this line
   };
 
   return (
@@ -225,7 +236,10 @@ const ContentGen = () => {
         </div>
 
         {/* Main Content */}
-        <div className="content-gen-container" style={{ flex: 1, padding: "20px" }}>
+        <div
+          className="content-gen-container"
+          style={{ flex: 1, padding: "20px" }}
+        >
           <h1>Course Content Generator</h1>
           {error && <p style={{ color: "red" }}>{error}</p>}
 

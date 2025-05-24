@@ -71,6 +71,10 @@ const Navbar = () => {
                 <li>
                   <a href="/coursegen">CourseGen</a>
                 </li>
+                <li>
+                  <a href="/testhistory">Test Results</a>{" "}
+                  {/* New link added here */}
+                </li>
               </>
             )}
             <li>
