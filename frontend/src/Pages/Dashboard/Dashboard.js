@@ -57,7 +57,7 @@ const Dashboard = () => {
 
         // Cache is missing/expired or courses changed, fetch fresh recommendations
         const courseNames = courseData.slice(0, 3).map(course => course.course_name);
-        const res = await fetch('http://localhost:5001/recommend-courses', {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/recommend-courses`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -5,7 +5,7 @@ import { supabase } from "../../supabaseClient";
 import { useUser } from "@supabase/auth-helpers-react";
 import "./ContentGen.css";
 import spinner from "../../Assets/spinner.gif";
-import Navbar from "../../Components/Navbar/Navbar";;
+import Navbar from "../../Components/Navbar/Navbar";
 
 const ContentGen = () => {
   const user = useUser();
@@ -19,11 +19,11 @@ const ContentGen = () => {
   const [statusMessage, setStatusMessage] = useState("");
   const [generatedTest, setGeneratedTest] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-const [currentCourseId, setCurrentCourseId] = useState(null);
+  const [currentCourseId, setCurrentCourseId] = useState(null);
 
-const toggleSidebar = () => {
-  setIsSidebarOpen((prev) => !prev);
-};
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   const showTemporaryStatus = (message, duration = 3000) => {
     setStatusMessage(message);
@@ -93,10 +93,7 @@ const toggleSidebar = () => {
     );
     if (!confirmDelete) return;
 
-    const { error } = await supabase
-      .from("courses")
-      .delete()
-      .eq("id", courseId);
+    const { error } = await supabase.from("courses").delete().eq("id", courseId);
 
     if (error) {
       console.error("Error deleting course:", error);
@@ -112,7 +109,7 @@ const toggleSidebar = () => {
     setError("");
     setStatusMessage("");
 
-    fetch("http://127.0.0.1:5001/generate", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/generate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -143,32 +140,29 @@ const toggleSidebar = () => {
   };
 
   const handleTakeTest = async () => {
-    setLoading(true); // Start loading spinner
-    setError(""); // Clear previous errors
-  
+    setLoading(true);
+    setError("");
+
     try {
-      const res = await fetch(
-        "https://mostly-communal-fly.ngrok-free.app/generate-test",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            course_name: savedCourses[0]?.course_name || "Default Course",
-            difficulty: savedCourses[0]?.difficulty || "medium",
-            content: content,
-          }),
-        }
-      );
-  
+      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/generate-test`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          course_name: savedCourses[0]?.course_name || "Default Course",
+          difficulty: savedCourses[0]?.difficulty || "medium",
+          content: content,
+        }),
+      });
+
       if (!res.ok) throw new Error("Failed to generate test");
 
       const data = await res.json();
       setGeneratedTest(data.test);
 
       localStorage.setItem("testData", data.test);
-  
-      setLoading(false); // Stop spinner before redirect
-      window.location.href = "/test"; // Redirect
+
+      setLoading(false);
+      window.location.href = "/test";
     } catch (err) {
       console.error("Error generating test:", err);
       setError("Failed to generate test.");
@@ -181,7 +175,7 @@ const toggleSidebar = () => {
     setContent(course.content);
     setQuiz(course.quiz);
     setCurrentIndex(0);
-    setCurrentCourseId(course.id); // Add this line
+    setCurrentCourseId(course.id);
   };
 
   return (
@@ -194,8 +188,9 @@ const toggleSidebar = () => {
           <img src={spinner} alt="Loading..." className="spinner" />
         </div>
       )}
-
-      <div style={{ display: "flex", height: "100vh", position: "relative", top: "7rem" }}>
+      
+      <div style={{ display: "flex", position: "relative", top: "7rem" ,height:"100vh"}}>
+        
         {/* Sidebar */}
         <div
           style={{
@@ -268,10 +263,23 @@ const toggleSidebar = () => {
             </>
           )}
         </div>
+        
 
         {/* Main Content */}
         <div className="content-gen-container" style={{ flex: 1, padding: "20px" }}>
-          <h1>Course Content Generator</h1>
+          
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+           
+          <h1 style={{ color: "black" }}>
+  {sections.length === 0 ? "Course Generator" : savedCourses.find(course => course.id === currentCourseId)?.course_name || "Course Generator"}
+</h1>
+            {sections.length > 0 && (
+              <button onClick={handleTakeTest} className="take-test-button">
+                Take Test
+              </button>
+            )}
+          </div>
+
           {error && <p style={{ color: "red" }}>{error}</p>}
 
           {sections.length === 0 ? (
@@ -284,12 +292,6 @@ const toggleSidebar = () => {
               currentIndex={currentIndex}
               setCurrentIndex={setCurrentIndex}
             />
-          )}
-
-          {sections.length > 0 && (
-            <button onClick={handleTakeTest} className="take-test-button">
-              Take Test
-            </button>
           )}
         </div>
       </div>

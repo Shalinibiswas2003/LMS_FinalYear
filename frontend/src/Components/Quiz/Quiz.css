@@ -34,7 +34,7 @@
   }
   
   .quiz-option.correct {
-    background-color: #2ecc71;  /* Green for correct answer */
+    background-color: #2ecc71!important ; /* Green for correct answer */
   }
   
   .quiz-option.wrong {

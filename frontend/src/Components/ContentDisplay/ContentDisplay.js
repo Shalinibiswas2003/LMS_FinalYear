@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown"; // ✅ Import this
-import remarkGfm from "remark-gfm"; // (optional) GitHub Flavored Markdown like tables, checkboxes
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const ContentDisplay = ({
   sections,
@@ -41,25 +41,62 @@ const ContentDisplay = ({
     }
 
     return (
-      <div className="quiz-container">
-        <p className="quiz-question">{quizData.question_body}</p>
-        {[1, 2, 3, 4].map((i) => (
-          <button
-            key={i}
-            className={`quiz-option ${
-              selectedOption === i
-                ? i === correctOption
-                  ? "correct"
-                  : "wrong"
-                : i === correctOption
-                ? "correct"
-                : ""
-            }`}
-            onClick={() => handleOptionClick(i, quizData.correctoptionNumber)}
-            disabled={isAnswered}
+      <div className="quiz-container" style={{ textAlign: "center" }}>
+        <h3>Quick Quiz</h3>
+        <p className="quiz-question">Q) {quizData.question_body}</p>
+
+        {[0, 1].map((row) => (
+          <div
+            key={row}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "10px",
+              gap: "15px",
+            }}
           >
-            {quizData[`option${i}`]}
-          </button>
+            {[1, 2].map((col) => {
+              const i = row * 2 + col;
+              return (
+                <button
+                  key={i}
+                  className={`quiz-option ${
+                    selectedOption === i
+                      ? i === correctOption
+                        ? "correct"
+                        : "wrong"
+                      : i === correctOption
+                      ? "correct"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handleOptionClick(i, quizData.correctoptionNumber)
+                  }
+                  disabled={isAnswered}
+                  style={{
+                    padding: "10px 20px",
+                    minWidth: "150px",
+                    borderRadius: "8px",
+                    border: "1px solid #ccc",
+                    backgroundColor:
+                      selectedOption === i
+                        ? i === correctOption
+                          ? "#4caf50"
+                          : "#f44336"
+                        : "#f0f0f0",
+                    color:
+                      selectedOption === i || i === correctOption
+                        ? "#fff"
+                        : "#000",
+                    cursor: "pointer",
+                    transition: "0.3s",
+                  }}
+                >
+                  {quizData[`option${i}`]}
+                </button>
+              );
+            })}
+          </div>
         ))}
       </div>
     );
@@ -85,19 +122,43 @@ const ContentDisplay = ({
     <div className="content-display">
       {displaySection()}
       {quiz[sections[currentIndex]] && displayQuiz()}
-      <div className="navigation-buttons">
-        <button
+      <div
+        className="navigation-buttons"
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+        }}
+      >
+        <div
           onClick={() => setCurrentIndex((prev) => prev - 1)}
           disabled={currentIndex === 0}
+          style={{
+            fontSize: "50px",
+            padding: "8px 16px",
+            cursor: "pointer",
+            borderRadius: "6px",
+            fontWeight:"bolder",
+            color:"#4a787d"
+          }}
         >
-          Previous
-        </button>
-        <button
+          ←
+        </div>
+        <div
           onClick={() => setCurrentIndex((prev) => prev + 1)}
           disabled={currentIndex === sections.length - 1}
+          style={{
+            fontSize: "50px",
+            padding: "8px 16px",
+            cursor: "pointer",
+            borderRadius: "6px",
+            fontWeight:"bolder",
+            color:"#4a787d"
+          }}
         >
-          Next
-        </button>
+          →
+        </div>
       </div>
     </div>
   );
