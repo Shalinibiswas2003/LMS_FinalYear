@@ -17,7 +17,7 @@ const TestPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const timerRef = useRef();
-  console.log("User from useUser():", user);
+ 
 
   // Load questions and correct answers
   useEffect(() => {
@@ -81,7 +81,7 @@ const TestPage = () => {
     setSaveError(null);
     setSaveSuccess(false);
 
-    const courseId = localStorage.getItem("currentCourseId");
+    const courseId = localStorage.getItem("courseId");
     console.log("courseId from localStorage:", courseId);
 
     if (!user || !courseId) {

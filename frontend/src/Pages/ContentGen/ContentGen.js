@@ -140,36 +140,39 @@ const ContentGen = () => {
   };
 
   const handleTakeTest = async () => {
-    setLoading(true);
-    setError("");
+  setLoading(true);
+  setError("");
 
-    try {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/generate-test`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          course_name: savedCourses[0]?.course_name || "Default Course",
-          difficulty: savedCourses[0]?.difficulty || "medium",
-          content: content,
-        }),
-      });
+  const currentCourse = savedCourses.find(course => course.id === currentCourseId);
 
-      if (!res.ok) throw new Error("Failed to generate test");
+  try {
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/generate-test`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        course_name: currentCourse?.course_name || "Default Course",
+        difficulty: currentCourse?.difficulty || "medium",
+        content: content,
+      }),
+    });
 
-      const data = await res.json();
-      setGeneratedTest(data.test);
+    if (!res.ok) throw new Error("Failed to generate test");
 
-      localStorage.setItem("testData", data.test);
-      localStorage.setItem("courseId", currentCourseId);
+    const data = await res.json();
+    setGeneratedTest(data.test);
+    console.log("TEST GENERATED FOR COURSE ID",currentCourseId);
+    localStorage.setItem("testData", data.test);
+    localStorage.setItem("courseId", currentCourseId);
 
-      setLoading(false);
-      window.location.href = "/test";
-    } catch (err) {
-      console.error("Error generating test:", err);
-      setError("Failed to generate test.");
-      setLoading(false);
-    }
-  };
+    setLoading(false);
+    window.location.href = "/test";
+  } catch (err) {
+    console.error("Error generating test:", err);
+    setError("Failed to generate test.");
+    setLoading(false);
+  }
+};
+
 
   const handleSelectCourse = (course) => {
     setSections(course.sections);
