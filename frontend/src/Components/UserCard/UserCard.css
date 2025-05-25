@@ -1,0 +1,37 @@
+.usercard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #374151;
+  margin: 16px 0;
+}
+
+.usercard-info {
+  flex: 1;
+  margin-right: 16px;
+}
+
+.usercard-info h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.usercard-line {
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.usercard-avatar {
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
