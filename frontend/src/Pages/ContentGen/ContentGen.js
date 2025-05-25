@@ -72,7 +72,7 @@ const ContentGen = () => {
           quiz,
         },
       ])
-      .select();
+      .select("id");
 
     if (error) {
       console.error("Error saving course:", error);
@@ -160,6 +160,7 @@ const ContentGen = () => {
       setGeneratedTest(data.test);
 
       localStorage.setItem("testData", data.test);
+      localStorage.setItem("courseId", currentCourseId);
 
       setLoading(false);
       window.location.href = "/test";
@@ -177,7 +178,15 @@ const ContentGen = () => {
     setCurrentIndex(0);
     setCurrentCourseId(course.id);
   };
-
+useEffect(() => {
+  if (savedCourses.length > 0 && !currentCourseId) {
+    const firstCourse = savedCourses[0];
+    setCurrentCourseId(firstCourse.id);
+    setSections(firstCourse.sections);
+    setContent(firstCourse.content);
+    setQuiz(firstCourse.quiz);
+  }
+}, [savedCourses, currentCourseId]);
   return (
     <>
       <Navbar />
@@ -189,7 +198,7 @@ const ContentGen = () => {
         </div>
       )}
       
-      <div style={{ display: "flex", position: "relative", top: "7rem" ,height:"100vh"}}>
+      <div style={{ display: "flex", position: "relative", top: "7rem" ,height:"max-content"}}>
         
         {/* Sidebar */}
         <div
@@ -197,7 +206,7 @@ const ContentGen = () => {
             width: isSidebarOpen ? "250px" : "40px",
             borderRight: "1px solid #ccc",
             padding: "10px",
-            overflowY: "auto",
+            
             transition: "width 0.3s",
             position: "relative",
           }}

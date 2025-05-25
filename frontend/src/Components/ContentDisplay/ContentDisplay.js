@@ -132,33 +132,37 @@ const ContentDisplay = ({
         }}
       >
         <div
-          onClick={() => setCurrentIndex((prev) => prev - 1)}
-          disabled={currentIndex === 0}
-          style={{
-            fontSize: "50px",
-            padding: "8px 16px",
-            cursor: "pointer",
-            borderRadius: "6px",
-            fontWeight:"bolder",
-            color:"#4a787d"
-          }}
-        >
-          ←
-        </div>
-        <div
-          onClick={() => setCurrentIndex((prev) => prev + 1)}
-          disabled={currentIndex === sections.length - 1}
-          style={{
-            fontSize: "50px",
-            padding: "8px 16px",
-            cursor: "pointer",
-            borderRadius: "6px",
-            fontWeight:"bolder",
-            color:"#4a787d"
-          }}
-        >
-          →
-        </div>
+  onClick={() => {
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
+  }}
+  style={{
+    fontSize: "50px",
+    padding: "8px 16px",
+    cursor: currentIndex === 0 ? "not-allowed" : "pointer",
+    opacity: currentIndex === 0 ? 0.4 : 1,
+    borderRadius: "6px",
+    fontWeight: "bolder",
+    color: "#4a787d",
+  }}
+>
+  ←
+</div>
+<div
+  onClick={() => {
+    if (currentIndex < sections.length - 1) setCurrentIndex((prev) => prev + 1);
+  }}
+  style={{
+    fontSize: "50px",
+    padding: "8px 16px",
+    cursor: currentIndex === sections.length - 1 ? "not-allowed" : "pointer",
+    opacity: currentIndex === sections.length - 1 ? 0.4 : 1,
+    borderRadius: "6px",
+    fontWeight: "bolder",
+    color: "#4a787d",
+  }}
+>
+  →
+</div>
       </div>
     </div>
   );
