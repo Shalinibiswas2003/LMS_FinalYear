@@ -40,6 +40,7 @@ const Navbar = () => {
     e.preventDefault();
     await supabase.auth.signOut();
     setUser(null);
+    window.location.href = "/";
   };
 
   const getDisplayName = () => {
