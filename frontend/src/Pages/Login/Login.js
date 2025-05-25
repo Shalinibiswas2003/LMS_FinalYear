@@ -1,21 +1,39 @@
 import React from 'react';
 import { supabase } from '../../supabaseClient';
-import './Login.css'; // 👈 import the CSS
+import './Login.css';
+import StudiousRobot from '../../Assets/StudiousRobot.jpg';
+import { FaArrowLeft } from 'react-icons/fa'; // 👈 Import the icon
 
 function Login() {
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/dashboard`, // 👈 redirects here after login
+    },
+  });
 
-    if (error) console.error('Error logging in:', error.message);
+  if (error) console.error('Error logging in:', error.message);
+};
+
+
+  const handleBack = () => {
+    window.location.href = '/'; // 👈 or use navigate() if using React Router
   };
 
   return (
     <div className="login-container">
-      <h2 className="login-title">Welcome to the Assignment Agent</h2>
+      <img src={StudiousRobot} alt="Studious Robot" className="login-image" />
+
+      <h1 className="login-heading">Welcome Back to EduSynth</h1>
+      <p className="login-subtext">Continue your learning journey with us.</p>
       <button className="login-button" onClick={handleLogin}>
-        Sign in with Google
+        Login with Google
+      </button>
+
+      {/* 👇 Back button below login */}
+      <button className="back-button" onClick={handleBack} title="Back to homepage">
+        <FaArrowLeft size={16} />
       </button>
     </div>
   );

@@ -40,6 +40,7 @@ const Navbar = () => {
     e.preventDefault();
     await supabase.auth.signOut();
     setUser(null);
+    window.location.href = "/";
   };
 
   const getDisplayName = () => {
@@ -69,7 +70,7 @@ const Navbar = () => {
                   <a href="/dashboard">Dashboard</a>
                 </li>
                 <li>
-                  <a href="/coursegen">CourseGen</a>
+                  <a href="/coursegen">Your Courses</a>
                 </li>
                 <li>
                   <a href="/testhistory">Test Results</a>{" "}
