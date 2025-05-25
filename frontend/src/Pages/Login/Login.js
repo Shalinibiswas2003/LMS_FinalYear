@@ -1,6 +1,7 @@
 import React from 'react';
 import { supabase } from '../../supabaseClient';
-import './Login.css'; // 👈 import the CSS
+import './Login.css';
+import StudiousRobot from '../../Assets/StudiousRobot.jpg' // 👈 Import the image
 
 function Login() {
   const handleLogin = async () => {
@@ -13,9 +14,13 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h2 className="login-title">Welcome to the Assignment Agent</h2>
+      {/* 👇 Image goes here */}
+      <img src={StudiousRobot} alt="Studious Robot" className="login-image" />
+
+      <h1 className="login-heading">Welcome Back to EduSynth</h1>
+      <p className="login-subtext">Continue your learning journey with us.</p>
       <button className="login-button" onClick={handleLogin}>
-        Sign in with Google
+        Login with Google
       </button>
     </div>
   );
