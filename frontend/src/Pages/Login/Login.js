@@ -6,12 +6,16 @@ import { FaArrowLeft } from 'react-icons/fa'; // 👈 Import the icon
 
 function Login() {
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/dashboard`, // 👈 redirects here after login
+    },
+  });
 
-    if (error) console.error('Error logging in:', error.message);
-  };
+  if (error) console.error('Error logging in:', error.message);
+};
+
 
   const handleBack = () => {
     window.location.href = '/'; // 👈 or use navigate() if using React Router
