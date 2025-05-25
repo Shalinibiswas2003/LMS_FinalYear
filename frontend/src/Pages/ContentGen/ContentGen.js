@@ -178,15 +178,7 @@ const ContentGen = () => {
     setCurrentIndex(0);
     setCurrentCourseId(course.id);
   };
-useEffect(() => {
-  if (savedCourses.length > 0 && !currentCourseId) {
-    const firstCourse = savedCourses[0];
-    setCurrentCourseId(firstCourse.id);
-    setSections(firstCourse.sections);
-    setContent(firstCourse.content);
-    setQuiz(firstCourse.quiz);
-  }
-}, [savedCourses, currentCourseId]);
+
   return (
     <>
       <Navbar />
