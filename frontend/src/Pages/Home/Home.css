@@ -1,28 +1,36 @@
 /* Styling for the logo section */
 
 body {
- /* background-image:url(./CoverPagex.jpg);  Replace with your image URL */
-  background-size: cover; /* Makes the image cover the entire background */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-attachment: fixed; /* Keeps the background fixed during scrolling */
+  /* background-image:url(./CoverPagex.jpg);  Replace with your image URL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
-  
 }
+
 .hero-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding-top: 6rem;
   padding-left: 4rem;
+  padding-right: 4rem;
   flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.hero-left {
+  flex: 1;
+  max-width: 600px;
+  min-width: 320px;
 }
 
 .hero-text {
-  flex: 1;
   max-width: 500px;
   padding-right: 2rem;
+  margin-bottom: 2rem;
 }
 
 .hero-text h1 {
@@ -42,7 +50,8 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  min-width: 300px;
 }
 
 .hero-image img {
@@ -52,16 +61,13 @@ body {
   border-radius: 10px;
 }
 
-
 /* Half Hexagon with Dotted Lines */
 .half-hexagon {
   position: relative;
   width: 100%;
   max-width: 900px;
   height: 350px;
-  margin-top: 4rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 2rem;
 }
 
 .hexagon-lines {
@@ -114,6 +120,7 @@ body {
   left: 65%;
   transform: translate(-50%, -50%);
 }
+
 .two-box-section {
   display: flex;
   justify-content: space-between;
@@ -125,10 +132,9 @@ body {
 .box {
   flex: 1;
   min-width: 250px;
-  
   padding: 1.5rem;
   border-radius: 12px;
-  border: 3px solid #4a787d
+  border: 3px solid #4a787d;
 }
 
 .left-box {
@@ -139,29 +145,74 @@ body {
   margin-left: 1rem;
 }
 
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem;
+  }
 
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .logo-section {
-      flex-wrap: wrap;
-    }
-  
-    .logo-item {
-      flex: 0 0 45%; /* Two items per row */
-      margin-bottom: 1rem;
-    }
+  .hero-left,
+  .hero-image {
+    max-width: 100%;
+    padding: 0;
   }
-  
-  @media (max-width: 480px) {
-    .logo-item {
-      flex: 0 0 100%; /* Full width per item on small screens */
-      margin-bottom: 1rem;
-    }
-  
-    .logo-item img {
-      width: 120px; /* Smaller image on small screens */
-      height: 80px;
-    }
+
+  .half-hexagon {
+    margin-top: 2rem;
+    height: 300px;
   }
-  
+}
+
+@media (max-width: 768px) {
+  .logo-item {
+    flex: 0 0 45%;
+    margin-bottom: 1rem;
+  }
+
+  .logo-item img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-text p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-item {
+    flex: 0 0 100%;
+    margin-bottom: 1rem;
+  }
+
+  .logo-item img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+}
+
+.hero-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between text and icon */
+}
+
+.clock-icon {
+  height: 3rem;
+  width: auto;
+}
