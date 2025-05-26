@@ -7,12 +7,12 @@ import Contact from './Pages/Contact/Contact';
 import ContentGen from './Pages/ContentGen/ContentGen';
 import Login from './Pages/Login/Login';
 import TestPage from './Pages/TestPage/TestPage';
-
+import ResultPage from "./Pages/ResultPage/ResultPage";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { supabase } from "./supabaseClient"; // Make sure this path is correct
 import Dashboard from './Pages/Dashboard/Dashboard';
 import TestHistory from './Pages/TestHistory/TestHistory';
-import TestPageDemo from './Pages/TestPage/TestPageDemo';
+
 
 function App() {
   return (
@@ -26,9 +26,10 @@ function App() {
             <Route path="/courseGen" element={<ContentGen />} />
             <Route path="/login" element={<Login />} />
             <Route path="/test" element={<TestPage />} />
-            <Route path="/testDemo" element={<TestPageDemo/>} />
+      
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/testhistory" element={<TestHistory/>}/>
+            <Route path="/result" element={<ResultPage />} />
           </Routes>
         </Router>
       </div>

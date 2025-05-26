@@ -1,0 +1,94 @@
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.score-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.progress-ring {
+  margin: 1.5rem 0;
+}
+
+.circular-chart {
+  width: 240px;
+  height: 240px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #4a787d;
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.percentage-text {
+  fill: #000;
+  font-size: 0.45rem;
+  font-weight: bold;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.robot-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers both robot-talk and button */
+  margin-top: 1.5rem;
+}
+
+.robot-talk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem; /* space between robot and button */
+}
+
+.robot-img {
+  width: 50px;
+  height: 50px;
+}
+
+.speech-bubble {
+  position: relative;
+  background: #fff;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  color:#4a787d;
+}
+
+
+.dashboard-button {
+  padding: 6px 16px;             /* smaller padding */
+  font-size: 0.875rem;           /* smaller text */
+  font-weight: 600;
+  background-color: #4a787d;
+  color: white;
+  border: none;
+  border-radius: 999px;          /* capsule shape */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: center;            /* center horizontally */
+  margin-top: 1rem;
+  margin-left:4rem;
+}
+
+.dashboard-button:hover {
+  background-color: #395f62;
+}
+

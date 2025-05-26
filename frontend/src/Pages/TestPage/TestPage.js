@@ -3,6 +3,8 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { supabase } from "../../supabaseClient";
 import Navbar from "../../Components/Navbar/Navbar";
 
+import { useNavigate } from "react-router-dom";
+
 const TestPage = () => {
   const user = useUser();
   const [questions, setQuestions] = useState([]);
@@ -15,9 +17,9 @@ const TestPage = () => {
   const [correctAnswers, setCorrectAnswers] = useState({});
   const [timer, setTimer] = useState(1800); // 1 hour in seconds
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const navigate = useNavigate();
 
   const timerRef = useRef();
- 
 
   // Load questions and correct answers
   useEffect(() => {
@@ -65,7 +67,10 @@ const TestPage = () => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${String(h).padStart(2, "0")} : ${String(m).padStart(2, "0")} : ${String(s).padStart(2, "0")}`;
+    return `${String(h).padStart(2, "0")} : ${String(m).padStart(
+      2,
+      "0"
+    )} : ${String(s).padStart(2, "0")}`;
   };
 
   const handleAnswerChange = (qIndex, selectedOption) => {
@@ -85,7 +90,9 @@ const TestPage = () => {
     console.log("courseId from localStorage:", courseId);
 
     if (!user || !courseId) {
-      setSaveError("Test results couldn't be saved. Missing user or course data.");
+      setSaveError(
+        "Test results couldn't be saved. Missing user or course data."
+      );
       setIsSaving(false);
       return;
     }
@@ -115,32 +122,43 @@ const TestPage = () => {
   };
 
   const handleSubmit = async () => {
-    let count = 0;
-    questions.forEach((q, i) => {
-      if (answers[i] !== undefined && answers[i] === q[`option${q.correctoptionNumber}`]) {
-        count += 1;
-      }
-    });
-    setScore(count);
-    setSubmitted(true);
+  let count = 0;
+  questions.forEach((q, i) => {
+    if (
+      answers[i] !== undefined &&
+      answers[i] === q[`option${q.correctoptionNumber}`]
+    ) {
+      count += 1;
+    }
+  });
+  setScore(count);
+  setSubmitted(true);
 
-    // Prepare full answers
-    const fullAnswers = {};
-    questions.forEach((q, i) => {
-      fullAnswers[i] = {
-        question_body: q.question_body,
-        option1: q.option1,
-        option2: q.option2,
-        option3: q.option3,
-        option4: q.option4,
-        correctoptionNumber: q.correctoptionNumber,
-        correctAnswer: q[`option${q.correctoptionNumber}`],
-        userAnswer: answers[i] || null,
-      };
-    });
+  // Prepare full answers
+  const fullAnswers = {};
+  questions.forEach((q, i) => {
+    fullAnswers[i] = {
+      question_body: q.question_body,
+      option1: q.option1,
+      option2: q.option2,
+      option3: q.option3,
+      option4: q.option4,
+      correctoptionNumber: q.correctoptionNumber,
+      correctAnswer: q[`option${q.correctoptionNumber}`],
+      userAnswer: answers[i] || null,
+    };
+  });
 
-    await saveTestResults(count, fullAnswers);
-  };
+  await saveTestResults(count, fullAnswers);
+
+  // 🧹 Clear test history cache so new test appears immediately
+  localStorage.removeItem("test_history_cache");
+  localStorage.removeItem("test_history_cache_time");
+
+  setTimeout(() => {
+    navigate("/result", { state: { score: count, total: questions.length } });
+  }, 2000);
+};
 
   const getAnswerStatus = (questionIndex, option) => {
     if (!submitted) return "";
@@ -315,11 +333,16 @@ const TestPage = () => {
           color: #4CAF50;
         }
       `}</style>
-      <Navbar/>
+      <Navbar />
       <div className="container">
-       <div className="timer-box" role="timer" aria-live="polite" aria-atomic="true">
-  Time Remaining: {formatTime(timer)}
-</div>
+        <div
+          className="timer-box"
+          role="timer"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Time Remaining: {formatTime(timer)}
+        </div>
 
         <div className="question-nav-box" aria-label="Question Navigation">
           {questions.map((_, i) => {
@@ -329,10 +352,14 @@ const TestPage = () => {
               <button
                 key={i}
                 type="button"
-                className={`${attempted ? "attempted" : ""} ${isCurrent ? "current" : ""}`}
+                className={`${attempted ? "attempted" : ""} ${
+                  isCurrent ? "current" : ""
+                }`}
                 onClick={() => setCurrentQuestionIndex(i)}
                 aria-current={isCurrent ? "true" : undefined}
-                aria-label={`Go to question ${i + 1}${attempted ? ", attempted" : ""}`}
+                aria-label={`Go to question ${i + 1}${
+                  attempted ? ", attempted" : ""
+                }`}
               >
                 {i + 1}
               </button>
@@ -350,9 +377,16 @@ const TestPage = () => {
           </p>
           <ul className="options-list">
             {[1, 2, 3, 4].map((optNum) => {
-              const optionText = questions[currentQuestionIndex][`option${optNum}`];
-              const answerStatus = getAnswerStatus(currentQuestionIndex, optionText);
-              const answerStyle = getAnswerStyle(currentQuestionIndex, optionText);
+              const optionText =
+                questions[currentQuestionIndex][`option${optNum}`];
+              const answerStatus = getAnswerStatus(
+                currentQuestionIndex,
+                optionText
+              );
+              const answerStyle = getAnswerStyle(
+                currentQuestionIndex,
+                optionText
+              );
               return (
                 <li key={optNum}>
                   <label style={answerStyle}>
@@ -361,10 +395,15 @@ const TestPage = () => {
                       name={`question-${currentQuestionIndex}`}
                       value={optionText}
                       checked={answers[currentQuestionIndex] === optionText}
-                      onChange={() => handleAnswerChange(currentQuestionIndex, optionText)}
+                      onChange={() =>
+                        handleAnswerChange(currentQuestionIndex, optionText)
+                      }
                       disabled={submitted}
                     />
-                    {optionText} {answerStatus && <span aria-hidden="true"> {answerStatus}</span>}
+                    {optionText}{" "}
+                    {answerStatus && (
+                      <span aria-hidden="true"> {answerStatus}</span>
+                    )}
                   </label>
                 </li>
               );
@@ -376,22 +415,29 @@ const TestPage = () => {
           className="submit-btn"
           onClick={handleSubmit}
           disabled={submitted || Object.keys(answers).length === 0 || isSaving}
-          aria-disabled={submitted || Object.keys(answers).length === 0 || isSaving}
+          aria-disabled={
+            submitted || Object.keys(answers).length === 0 || isSaving
+          }
         >
-          {submitted ? "Test Submitted" : isSaving ? "Saving..." : "Submit Test"}
+          {submitted
+            ? "Test Submitted"
+            : isSaving
+            ? "Saving..."
+            : "Submit Test"}
         </button>
 
-        {saveError && <p className="save-message error" role="alert">Error: {saveError}</p>}
-        {saveSuccess && <p className="save-message success" role="alert" style={{margin:"2rem"}}>Test results saved successfully!</p>}
-
-        {submitted && (
+        {saveError && (
+          <p className="save-message error" role="alert">
+            Error: {saveError}
+          </p>
+        )}
+        {saveSuccess && (
           <p
-            className={`score-display ${
-              score >= questions.length / 2 ? "green" : "red"
-            }`}
-            aria-live="polite"
+            className="save-message success"
+            role="alert"
+            style={{ margin: "2rem" }}
           >
-            You scored {score} out of {questions.length}
+            Test results saved successfully!
           </p>
         )}
       </div>
