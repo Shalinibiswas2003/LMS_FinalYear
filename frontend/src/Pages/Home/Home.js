@@ -6,6 +6,7 @@ import Footer from '../../Components/Footer/Footer';
 import Slider from '../../Components/Slider/Slider';
 import LearningIllustration from '../../Assets/LearningIllustration.jpg';
 import Clock from '../../Assets/Clock.jpg';
+import Homepg from "../../Assets/home.png"
 
 function Home() {
   return (
@@ -27,11 +28,13 @@ function Home() {
 
           {/* Hexagon Section */}
           <div className="half-hexagon">
-            <svg className="hexagon-lines" width="100%" height="100%">
+            <img src={Homepg} alt="" srcset="" style={{width:"40rem"}}/>
+           {/* <svg className="hexagon-lines" width="100%" height="100%">
               <line x1="20%" y1="30%" x2="35%" y2="60%" stroke="black" strokeWidth="2" strokeDasharray="4" />
               <line x1="35%" y1="60%" x2="65%" y2="60%" stroke="black" strokeWidth="2" strokeDasharray="4" />
               <line x1="65%" y1="60%" x2="80%" y2="30%" stroke="black" strokeWidth="2" strokeDasharray="4" />
             </svg>
+            
 
             <div className="logo-item logo1">
               <img src="/GPTTeacher.png" alt="Generate Course" />
@@ -48,7 +51,7 @@ function Home() {
             <div className="logo-item logo4">
               <img src="/CertificateIcon.png" alt="Certificate" />
               <p>Get Your Certificate!</p>
-            </div>
+            </div>*/}
           </div>
         </div>
 
