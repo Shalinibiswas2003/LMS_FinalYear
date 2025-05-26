@@ -1,17 +1,17 @@
-import React from 'react';
-import Navbar from '../../Components/Navbar/Navbar';
-import './Home.css';
-import Testimonials from '../../Components/Testimonial/Testimonial';
-import Footer from '../../Components/Footer/Footer';
-import Slider from '../../Components/Slider/Slider';
-import LearningIllustration from '../../Assets/LearningIllustration.jpg';
-import Clock from '../../Assets/Clock.jpg';
-import Homepg from "../../Assets/home.png"
+import React from "react";
+import Navbar from "../../Components/Navbar/Navbar";
+import "./Home.css";
+import Testimonials from "../../Components/Testimonial/Testimonial";
+import Footer from "../../Components/Footer/Footer";
+import Slider from "../../Components/Slider/Slider";
+import LearningIllustration from "../../Assets/LearningIllustration.jpg";
+import Clock from "../../Assets/Clock.jpg";
+import Homepg from "../../Assets/home.png";
 
 function Home() {
   return (
     <div>
-      <div className="nav" style={{ marginBottom: '2rem', height: '100%' }}>
+      <div className="nav" style={{ marginBottom: "2rem", height: "100%" }}>
         <Navbar />
       </div>
 
@@ -20,16 +20,16 @@ function Home() {
         <div className="hero-left">
           <div className="hero-text">
             <div className="hero-heading">
-  <h1>Learn on your schedule!</h1>
-  <img src={Clock} alt="Clock" className="clock-icon" />
-</div>
-            <p>Anywhere. Anytime. Start learning today!</p>
+              <h1>Learn on your schedule!</h1>
+              <img src={Clock} alt="Clock" className="clock-icon" />
+            </div>
+            <p className="hero-subtext">Anywhere. Anytime. Start learning today!</p>
           </div>
 
           {/* Hexagon Section */}
           <div className="half-hexagon">
-            <img src={Homepg} alt="" srcset="" style={{width:"40rem"}}/>
-           {/* <svg className="hexagon-lines" width="100%" height="100%">
+            <img src={Homepg} alt="" srcset="" style={{ width: "40rem" }} />
+            {/* <svg className="hexagon-lines" width="100%" height="100%">
               <line x1="20%" y1="30%" x2="35%" y2="60%" stroke="black" strokeWidth="2" strokeDasharray="4" />
               <line x1="35%" y1="60%" x2="65%" y2="60%" stroke="black" strokeWidth="2" strokeDasharray="4" />
               <line x1="65%" y1="60%" x2="80%" y2="30%" stroke="black" strokeWidth="2" strokeDasharray="4" />

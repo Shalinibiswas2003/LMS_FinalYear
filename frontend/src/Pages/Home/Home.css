@@ -31,6 +31,7 @@ body {
   max-width: 500px;
   padding-right: 2rem;
   margin-bottom: 2rem;
+
 }
 
 .hero-text h1 {
@@ -215,4 +216,13 @@ body {
 .clock-icon {
   height: 3rem;
   width: auto;
+  margin-top:6rem;
+  margin-left:-9rem;
+}
+
+.hero-subtext
+{
+  display:flex;
+  margin-left:4rem;
+  white-space: nowrap;
 }
